@@ -1,0 +1,39 @@
+package rules;
+
+import com.lzy.entity.Order;
+
+//100元以下，不积分
+rule "score_1"
+when
+    $order:Order(amout<=100)
+then
+    $order.setScore(0);
+    System.out.println("100元以下不积分");
+end
+
+//100-500元，加100分
+rule "score_2"
+when
+    $order:Order(amout>100 && amout<=500)
+then
+    $order.setScore(100);
+    System.out.println("100到500元，加100分");
+end
+
+//500-100元，加500分
+rule "score_3"
+when
+    $order:Order(amout>500 && amout<=1000)
+then
+    $order.setScore(500);
+    System.out.println("5000到1000元，加500分");
+end
+
+//大于1000元，加1000
+rule "score_4"
+when
+    $order:Order(amout>1000)
+then
+    $order.setScore(1000);
+    System.out.println("1000元以上，加1000分");
+end
